@@ -1,6 +1,7 @@
 package com.example.TodoApp.notes;
 
 public class Note {
+
     private Long id;
     private String note;
     private String from;
