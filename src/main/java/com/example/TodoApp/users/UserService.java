@@ -1,4 +1,4 @@
-package com.example.TodoApp.user;
+package com.example.TodoApp.users;
 
 import org.springframework.stereotype.Service;
 

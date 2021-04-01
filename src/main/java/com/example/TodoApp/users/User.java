@@ -1,4 +1,4 @@
-package com.example.TodoApp.user;
+package com.example.TodoApp.users;
 
 public class User {
     private Long id;
