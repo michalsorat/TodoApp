@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
-@Table(name="users")
+@Table
 public class User {
     @Id
     @SequenceGenerator(
