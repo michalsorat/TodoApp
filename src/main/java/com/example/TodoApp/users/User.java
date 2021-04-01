@@ -1,10 +1,28 @@
 package com.example.TodoApp.users;
 
+import javax.persistence.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+@Entity
+@Table
 public class User {
+    @Id
+    @SequenceGenerator(
+            name = "users_sequence",
+            sequenceName = "users_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "users_sequence"
+    )
     private Long id;
     private String name;
     private String password;
     private String email;
+    @Transient
+    private String reg_date;
 
     public User() {
     }
@@ -50,6 +68,14 @@ public class User {
         return email;
     }
 
+    public String getReg_date() {
+        return reg_date;
+    }
+
+    public void setReg_date(String reg_date) {
+        this.reg_date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+    }
+
     public void setEmail(String email) {
         this.email = email;
     }
@@ -61,6 +87,7 @@ public class User {
                 ", name='" + name + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
+                ", registration_date='" + reg_date + '\'' +
                 '}';
     }
 }

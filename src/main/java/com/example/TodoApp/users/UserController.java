@@ -1,9 +1,7 @@
 package com.example.TodoApp.users;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -14,12 +12,31 @@ public class UserController {
     private final UserService userService;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService){
         this.userService = userService;
     }
 
     @GetMapping
     public List<User> getUser(){
+
         return userService.getUsers();
+    }
+
+    @PostMapping
+    public void registerNewUser(@RequestBody User user){
+        userService.addNewUser(user);
+    }
+    @DeleteMapping(path = "{userID}")
+    public void deleteUser(@PathVariable("userID") Long userID){
+        userService.deleteUser(userID);
+    }
+    @PutMapping(path = "{userID}")
+    public void updateUser(
+                            @PathVariable("userID") Long userID,
+                            @RequestParam(required = false) String name,
+                            @RequestParam(required = false) String email,
+                            @RequestParam(required = false) String password){
+            userService.updateUser(userID, name, email, password);
+
     }
 }
