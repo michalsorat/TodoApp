@@ -1,6 +1,20 @@
 package com.example.TodoApp.userNotes;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name="userNote")
 public class UserNote {
+    @Id
+    @SequenceGenerator(
+            name = "userNotes_sequence",
+            sequenceName = "userNotes_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "userNotes_sequence"
+    )
     private Long userId;
     private Long noteId;
 

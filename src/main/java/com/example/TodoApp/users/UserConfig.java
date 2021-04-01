@@ -19,12 +19,14 @@ public class UserConfig {
             User laco = new User(
                     "laco",
                     "jamal123",
-                    "laco@gmail.com"
+                    "laco@gmail.com",
+                    date
             );
             User michal = new User(
                     "michal",
                     "michal1234",
-                    "michal@gmail.com"
+                    "michal@gmail.com",
+                    date
             );
             repository.saveAll(
                     List.of(laco, michal)

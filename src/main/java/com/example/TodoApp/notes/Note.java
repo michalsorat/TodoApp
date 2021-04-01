@@ -1,27 +1,41 @@
 package com.example.TodoApp.notes;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name="note")
 public class Note {
+    @Id
+    @SequenceGenerator(
+            name = "notes_sequence",
+            sequenceName = "notes_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "notes_sequence"
+    )
     private Long id;
     private String note;
-    private String from;
-    private String to;
+    private String rg;
+    private String ug;
     private boolean favourite;
 
     public Note() {
     }
 
-    public Note(Long id, String note, String from, String to, boolean favourite) {
+    public Note(Long id, String note, String rg, String ug, boolean favourite) {
         this.id = id;
         this.note = note;
-        this.from = from;
-        this.to = to;
+        this.rg = rg;
+        this.ug = ug;
         this.favourite = favourite;
     }
 
-    public Note(String note, String from, String to, boolean favourite) {
+    public Note(String note, String rg, String ug, boolean favourite) {
         this.note = note;
-        this.from = from;
-        this.to = to;
+        this.rg = rg;
+        this.ug = ug;
         this.favourite = favourite;
     }
 
@@ -42,19 +56,19 @@ public class Note {
     }
 
     public String getFrom() {
-        return from;
+        return rg;
     }
 
     public void setFrom(String from) {
-        this.from = from;
+        this.rg = from;
     }
 
     public String getTo() {
-        return to;
+        return ug;
     }
 
     public void setTo(String to) {
-        this.to = to;
+        this.ug = to;
     }
 
     public boolean isFavourite() {
@@ -70,8 +84,8 @@ public class Note {
         return "Note{" +
                 "id=" + id +
                 ", note='" + note + '\'' +
-                ", from='" + from + '\'' +
-                ", to='" + to + '\'' +
+                ", from='" + rg + '\'' +
+                ", to='" + ug + '\'' +
                 ", favourite=" + favourite +
                 '}';
     }

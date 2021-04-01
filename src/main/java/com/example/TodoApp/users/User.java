@@ -27,17 +27,19 @@ public class User {
     public User() {
     }
 
-    public User(Long id, String name, String password, String email) {
+    public User(Long id, String name, String password, String email, String reg_date) {
         this.id = id;
         this.name = name;
         this.password = password;
         this.email = email;
+        this.reg_date = reg_date;
     }
 
-    public User(String name, String password, String email) {
+    public User(String name, String password, String email, String reg_date) {
         this.name = name;
         this.password = password;
         this.email = email;
+        this.reg_date = reg_date;
     }
 
     public Long getId() {
