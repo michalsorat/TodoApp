@@ -16,7 +16,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping
+    @GetMapping //vsetkych :|
     public List<User> getUser() {
 
         return userService.getUsers();
@@ -29,7 +29,7 @@ public class UserController {
         return userService.getUser(userId);
     }
 
-    @PostMapping
+    @PostMapping(path = "register")
     public void registerNewUser(@RequestBody User user) {
         userService.addNewUser(user);
     }
@@ -49,7 +49,7 @@ public class UserController {
 
     }
 
-    @GetMapping
+    @GetMapping(path = "login")
     public User loginUser(@RequestBody User user) {
         return userService.loginUser(user);
     }

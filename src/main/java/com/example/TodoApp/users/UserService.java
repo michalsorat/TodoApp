@@ -23,16 +23,20 @@ public class UserService {
     }
 
     public void addNewUser(User user) {
-        Optional<User> userByEmail = userRepository.findUserByEmail(user.getEmail());
-        if (userByEmail.isPresent()) {
-            throw new IllegalStateException("Email address already in use");
+        if(user.getPassword() != null && !user.getPassword().isEmpty() && user.getEmail() != null && !user.getEmail().isEmpty() && user.getName() != null && !user.getName().isEmpty() ){
+            Optional<User> userByEmail = userRepository.findUserByEmail(user.getEmail());
+            if (userByEmail.isPresent()) {
+                throw new IllegalStateException("Email address already in use");
+            }
+            Optional<User> userByName = userRepository.findUserByName((user.getName()));
+            if (userByName.isPresent()) {
+                throw new IllegalStateException("Name already in use");
+            } //kontrola mena a hesla
+
+            user.setReg_date(LocalDate.now());
+            userRepository.save(user);
         }
-        Optional<User> userByName = userRepository.findUserByName((user.getName()));
-        if (userByName.isPresent()) {
-            throw new IllegalStateException("Name already in use");
-        } //kontrola mena a hesla
-        user.setReg_date(LocalDate.now());
-        userRepository.save(user);
+        throw new IllegalStateException("Wrong input!");
     }
 
     public void deleteUser(Long id) {
