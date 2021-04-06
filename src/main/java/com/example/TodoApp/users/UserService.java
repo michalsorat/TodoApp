@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -30,6 +31,7 @@ public class UserService {
         if (userByName.isPresent()){
             throw new IllegalStateException("Name already in use");
         }
+        user.setReg_date(LocalDate.now());
         userRepository.save(user);
     }
 
@@ -58,5 +60,12 @@ public class UserService {
         if (password != null && password.length() > 6 && !Objects.equals(user.getPassword(), password)){
             user.setPassword(password);
         }
+    }
+    public User getUser(Long userId) {
+        Optional<User> exists = userRepository.findById(userId);
+        if (exists.isEmpty())
+            throw new IllegalStateException("User with ID " + userId + " does not exist!");
+
+        return exists.get();
     }
 }

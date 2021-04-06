@@ -11,7 +11,7 @@ import java.util.List;
 @Configuration
 public class UserConfig {
 
-    String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+    //String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
 
     @Bean
     CommandLineRunner commandLineRunner(UserRepository repository){
@@ -19,14 +19,14 @@ public class UserConfig {
             User laco = new User(
                     "laco",
                     "jamal123",
-                    "laco@gmail.com",
-                    date
+                    "laco@gmail.com"/*,
+                    date*/
             );
             User michal = new User(
                     "michal",
                     "michal1234",
-                    "michal@gmail.com",
-                    date
+                    "michal@gmail.com"/*,
+                    date*/
             );
             repository.saveAll(
                     List.of(laco, michal)

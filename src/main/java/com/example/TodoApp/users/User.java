@@ -2,6 +2,7 @@ package com.example.TodoApp.users;
 
 import javax.persistence.*;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -21,25 +22,28 @@ public class User {
     private String name;
     private String password;
     private String email;
-    @Transient
-    private String reg_date;
+//    @Transient
+//    private String reg_date;
 
+    private LocalDate reg_date;
     public User() {
     }
 
-    public User(Long id, String name, String password, String email, String reg_date) {
+    public User(Long id, String name, String password, String email /*,String reg_date*/) {
         this.id = id;
         this.name = name;
         this.password = password;
         this.email = email;
-        this.reg_date = reg_date;
+        this.reg_date = LocalDate.now();
+       // this.reg_date = reg_date;
     }
 
-    public User(String name, String password, String email, String reg_date) {
+    public User(String name, String password, String email/*, String reg_date*/) {
         this.name = name;
         this.password = password;
         this.email = email;
-        this.reg_date = reg_date;
+        this.reg_date = LocalDate.now();
+        //this.reg_date = reg_date;
     }
 
     public Long getId() {
@@ -69,14 +73,23 @@ public class User {
     public String getEmail() {
         return email;
     }
+    public LocalDate getReg_date() {
 
-    public String getReg_date() {
+        return reg_date;
+    }
+    public void setReg_date(LocalDate reg_date) {
+
+        this.reg_date = reg_date;
+    }
+
+
+    /*public String getReg_date() {
         return reg_date;
     }
 
     public void setReg_date(String reg_date) {
         this.reg_date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
-    }
+    }*/
 
     public void setEmail(String email) {
         this.email = email;
