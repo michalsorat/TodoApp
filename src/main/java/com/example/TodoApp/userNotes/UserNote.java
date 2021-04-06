@@ -3,7 +3,7 @@ package com.example.TodoApp.userNotes;
 import javax.persistence.*;
 
 @Entity
-@Table(name="userNote")
+@Table(name = "userNote")
 public class UserNote {
     @Id
     @SequenceGenerator(

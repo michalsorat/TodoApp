@@ -1,12 +1,9 @@
 package com.example.TodoApp.userNotes;
 
-import com.example.TodoApp.users.User;
-import com.example.TodoApp.users.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserNoteService {
@@ -17,7 +14,7 @@ public class UserNoteService {
         this.userNotesRepository = userNotesRepository;
     }
 
-    public List<UserNote> getUserNote(){
+    public List<UserNote> getUserNote() {
         return userNotesRepository.findAll();
     }
 
@@ -27,7 +24,7 @@ public class UserNoteService {
 
     public void deleteUserNote(Long id) {
         boolean exists = userNotesRepository.existsById(id);
-        if (!exists){
+        if (!exists) {
             throw new IllegalStateException("Note with id " + id + "does not exist");
         }
         userNotesRepository.deleteById(id);

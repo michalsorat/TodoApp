@@ -10,7 +10,7 @@ import java.util.List;
 public class NoteConfig {
 
     @Bean
-    CommandLineRunner commandLineRunner_Notes(NoteRepository repository){
+    CommandLineRunner commandLineRunner_Notes(NoteRepository repository) {
         return args -> {
             Note todo = new Note(
                     "todo",

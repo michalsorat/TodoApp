@@ -4,8 +4,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 @Configuration
@@ -14,7 +12,7 @@ public class UserConfig {
     //String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
 
     @Bean
-    CommandLineRunner commandLineRunner(UserRepository repository){
+    CommandLineRunner commandLineRunner(UserRepository repository) {
         return args -> {
             User laco = new User(
                     "laco",

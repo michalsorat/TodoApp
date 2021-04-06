@@ -1,6 +1,5 @@
 package com.example.TodoApp.userNotes;
 
-import com.example.TodoApp.users.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,15 +12,13 @@ import java.util.List;
 @RequestMapping(path = "api/v1/userNotes")
 public class UserNoteController {
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="userId", nullable = false)
-    private String userId;
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="noteId", nullable = false)
-    private String noteId;
-
     private final UserNoteService userNoteService;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userId", nullable = false)
+    private String userId;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "noteId", nullable = false)
+    private String noteId;
 
     @Autowired
     public UserNoteController(UserNoteService userNoteService) {
@@ -32,12 +29,14 @@ public class UserNoteController {
     public List<UserNote> getUserNote() {
         return userNoteService.getUserNote();
     }
+
     @PostMapping
-    public void newNote(@RequestBody UserNote userNote){
+    public void newNote(@RequestBody UserNote userNote) {
         userNoteService.addNewUserNote(userNote);
     }
+
     @DeleteMapping(path = "{userNoteID}")
-    public void deleteUser(@PathVariable("userNoteID") Long userNoteID){
+    public void deleteUser(@PathVariable("userNoteID") Long userNoteID) {
         userNoteService.deleteUserNote(userNoteID);
     }
 }

@@ -1,12 +1,10 @@
 package com.example.TodoApp.users;
 
 import javax.persistence.*;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.Date;
 
 @Entity
-@Table(name="users")
+@Table(name = "users")
 public class User {
     @Id
     @SequenceGenerator(
@@ -26,6 +24,7 @@ public class User {
 //    private String reg_date;
 
     private LocalDate reg_date;
+
     public User() {
     }
 
@@ -35,7 +34,7 @@ public class User {
         this.password = password;
         this.email = email;
         this.reg_date = LocalDate.now();
-       // this.reg_date = reg_date;
+        // this.reg_date = reg_date;
     }
 
     public User(String name, String password, String email/*, String reg_date*/) {
@@ -73,13 +72,14 @@ public class User {
     public String getEmail() {
         return email;
     }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public LocalDate getReg_date() {
 
         return reg_date;
-    }
-    public void setReg_date(LocalDate reg_date) {
-
-        this.reg_date = reg_date;
     }
 
 
@@ -91,8 +91,9 @@ public class User {
         this.reg_date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
     }*/
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setReg_date(LocalDate reg_date) {
+
+        this.reg_date = reg_date;
     }
 
     @Override
