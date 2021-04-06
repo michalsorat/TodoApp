@@ -12,12 +12,12 @@ public class UserController {
     private final UserService userService;
 
     @Autowired
-    public UserController(UserService userService){
+    public UserController(UserService userService) {
         this.userService = userService;
     }
 
     @GetMapping
-    public List<User> getUser(){
+    public List<User> getUser() {
 
         return userService.getUsers();
     }
@@ -25,25 +25,32 @@ public class UserController {
     //vybrat jedneho usera podla id
     @GetMapping(path = "{userId}")
     public User getUser(
-            @PathVariable("userId") Long userId){
+            @PathVariable("userId") Long userId) {
         return userService.getUser(userId);
     }
 
     @PostMapping
-    public void registerNewUser(@RequestBody User user){
+    public void registerNewUser(@RequestBody User user) {
         userService.addNewUser(user);
     }
+
     @DeleteMapping(path = "{userID}")
-    public void deleteUser(@PathVariable("userID") Long userID){
+    public void deleteUser(@PathVariable("userID") Long userID) {
         userService.deleteUser(userID);
     }
+
     @PutMapping(path = "{userID}")
     public void updateUser(
-                            @PathVariable("userID") Long userID,
-                            @RequestParam(required = false) String name,
-                            @RequestParam(required = false) String email,
-                            @RequestParam(required = false) String password){
-            userService.updateUser(userID, name, email, password);
+            @PathVariable("userID") Long userID,
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String email,
+            @RequestParam(required = false) String password) {
+        userService.updateUser(userID, name, email, password);
 
+    }
+
+    @GetMapping
+    public User loginUser(@RequestBody User user) {
+        return userService.loginUser(user);
     }
 }
