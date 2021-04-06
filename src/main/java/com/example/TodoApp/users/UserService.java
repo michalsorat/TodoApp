@@ -23,7 +23,8 @@ public class UserService {
     }
 
     public void addNewUser(User user) {
-        if(user.getPassword() != null && !user.getPassword().isEmpty() && user.getEmail() != null && !user.getEmail().isEmpty() && user.getName() != null && !user.getName().isEmpty() ){
+        if (user.getPassword() != null && !user.getPassword().isEmpty() && user.getEmail() != null && !user.getEmail().isEmpty() && user.getName() != null && !user.getName().isEmpty()
+                && user.getPassword().length() > 6) {
             Optional<User> userByEmail = userRepository.findUserByEmail(user.getEmail());
             if (userByEmail.isPresent()) {
                 throw new IllegalStateException("Email address already in use");
@@ -35,8 +36,9 @@ public class UserService {
 
             user.setReg_date(LocalDate.now());
             userRepository.save(user);
+        } else {
+            throw new IllegalStateException("Wrong input!");
         }
-        throw new IllegalStateException("Wrong input!");
     }
 
     public void deleteUser(Long id) {
@@ -83,7 +85,8 @@ public class UserService {
                 throw new IllegalStateException("Wrong username or pasword");
             }
             return exists.get();
+        } else {
+            throw new IllegalStateException("Wrong username or pasword");
         }
-        throw new IllegalStateException("Wrong username or pasword");
     }
 }

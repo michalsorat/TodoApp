@@ -21,7 +21,7 @@ public class NoteController {
         return noteService.getNotes();
     }
 
-    @PostMapping
+    @PostMapping(path = "newNote")
     public void addNewNote(@RequestBody Note note) {
         noteService.addNewNote(note);
     }

@@ -26,8 +26,14 @@ public class UserConfig {
                     "michal@gmail.com"/*,
                     date*/
             );
+            User sasalka = new User(
+                    "sasalka",
+                    "1234567",
+                    "sss@gmail.com"/*,
+                    date*/
+            );
             repository.saveAll(
-                    List.of(laco, michal)
+                    List.of(laco, michal, sasalka)
             );
         };
     }
