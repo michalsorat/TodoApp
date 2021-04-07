@@ -44,8 +44,8 @@ public class NoteService {
         if (!Objects.equals(note.isFavourite(), favourite)) {
             note.setFavourite(favourite);
         }
-
     }
+
     public Note getNote(Long noteId) {
         Optional<Note> exists = noteRepository.findById(noteId);
         if (exists.isEmpty())
@@ -55,7 +55,7 @@ public class NoteService {
     }
 
     public List<Note> getNotesByUser(long userId) {
-        List<Note> vratenie = noteRepository.findNotesByUserId(userId);
-        return vratenie;
+        //List<Note> notesOfUser = noteRepository.findNotesByUserId(userId);
+        return noteRepository.findNotesByUserId(userId);
     }
 }

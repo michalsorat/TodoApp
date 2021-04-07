@@ -20,36 +20,33 @@ public class Note {
     private long id;
     private long user_id;
     private String note;
-    private String od;
-    private String platnost;
+    private String description;
+    private String fromDate;
+    private String toDate;
     private boolean favourite;
-
-
 
     public Note() {
     }
 
-    public Note(long id, /*long user_id,*/ String note, String od, String platnost, boolean favourite) {
+    public Note(String note, String description, String fromDate, String toDate, boolean favourite) {
+        this.note = note;
+        this.description = description;
+        this.fromDate = fromDate;
+        this.toDate = toDate;
+        this.favourite = favourite;
+    }
+
+    public Note(long id, long user_id, String note, String description, String fromDate, String toDate, boolean favourite) {
         this.id = id;
-        //this.user_id = user_id;
-        this.note = note;
-        this.od = od;
-        this.platnost = platnost;
-        this.favourite = favourite;
-    }
-
-    public Note(String note, String od, String platnost, boolean favourite, long user_id) {
-        this.note = note;
-        this.od = od;
-        this.platnost = platnost;
-        this.favourite = favourite;
         this.user_id = user_id;
+        this.note = note;
+        this.description = description;
+        this.fromDate = fromDate;
+        this.toDate = toDate;
+        this.favourite = favourite;
     }
 
-    /*public Note(String name, String note, String from, String to, boolean favourite) {
-    }*/
-
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
@@ -57,13 +54,13 @@ public class Note {
         this.id = id;
     }
 
-    /*public Long getUser_id() {
+    public long getUser_id() {
         return user_id;
     }
 
     public void setUser_id(long user_id) {
         this.user_id = user_id;
-    }*/
+    }
 
     public String getNote() {
         return note;
@@ -73,20 +70,28 @@ public class Note {
         this.note = note;
     }
 
-    public String getFrom() {
-        return od;
+    public String getDescription() {
+        return description;
     }
 
-    public void setFrom(String od) {
-        this.od = od;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public String getTo() {
-        return platnost;
+    public String getFromDate() {
+        return fromDate;
     }
 
-    public void setTo(String platnost) {
-        this.platnost = platnost;
+    public void setFromDate(String fromDate) {
+        this.fromDate = fromDate;
+    }
+
+    public String getToDate() {
+        return toDate;
+    }
+
+    public void setToDate(String toDate) {
+        this.toDate = toDate;
     }
 
     public boolean isFavourite() {
@@ -101,11 +106,14 @@ public class Note {
     public String toString() {
         return "Note{" +
                 "id=" + id +
-                //", user_id='" + user_id + '\'' +
+                ", user_id=" + user_id +
                 ", note='" + note + '\'' +
-                ", from='" + od + '\'' +
-                ", to='" + platnost + '\'' +
+                ", description='" + description + '\'' +
+                ", fromDate='" + fromDate + '\'' +
+                ", toDate='" + toDate + '\'' +
                 ", favourite=" + favourite +
                 '}';
     }
 }
+
+
