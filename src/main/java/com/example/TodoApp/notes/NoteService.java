@@ -35,16 +35,38 @@ public class NoteService {
     }
 
     @Transactional
-    public void updateNote(Long noteID, String noteText, Boolean favourite) {
-        Note note = noteRepository.findById(noteID)
-                .orElseThrow(() -> new IllegalStateException("Note with ID " + noteID + "does not exist"));
-        if (noteText != null && noteText.length() > 0 && !Objects.equals(note.getNote(), noteText)) {
-            note.setNote(noteText);
+    public Note updateNote(long id, Note updNote) {
+        if (noteRepository.findById(id).isPresent())
+        {
+            Note existingNote = noteRepository.findById(id).get();
+            if (updNote.getNote() != null && !Objects.equals(existingNote.getNote(), updNote.getNote()))
+            {
+                existingNote.setNote(updNote.getNote());
+            }
+            if (updNote.getDescription() != null && !Objects.equals(existingNote.getDescription(), updNote.getDescription()))
+            {
+                existingNote.setDescription(updNote.getDescription());
+            }
+            if (updNote.getFromDate() != null && !Objects.equals(existingNote.getFromDate(), updNote.getFromDate()))
+            {
+                existingNote.setFromDate(updNote.getFromDate());
+            }
+            if (updNote.getToDate() != null && !Objects.equals(existingNote.getToDate(), updNote.getToDate()))
+            {
+                existingNote.setToDate(updNote.getToDate());
+            }
+            if (!Objects.equals(existingNote.isFavourite(), updNote.isFavourite()))
+            {
+                existingNote.setFavourite(updNote.isFavourite());
+            }
+            return noteRepository.save(existingNote);
         }
-        if (!Objects.equals(note.isFavourite(), favourite)) {
-            note.setFavourite(favourite);
+        else
+        {
+            return null;
         }
     }
+
 
     public Note getNote(Long noteId) {
         Optional<Note> exists = noteRepository.findById(noteId);

@@ -2,6 +2,8 @@ package com.example.TodoApp.notes;
 
 import com.example.TodoApp.users.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -40,12 +42,12 @@ public class NoteController {
     }
 
     @PutMapping(path = "{noteID}")
-    public void updateNote(
-            @PathVariable("noteID") long noteID,
-            @RequestParam(required = false) String note,
-            @RequestParam(required = false) Boolean favourite) {
-        noteService.updateNote(noteID, note, favourite);
-
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Note> updateNote(@PathVariable("noteID") long noteID, @RequestBody Note noteUpd)
+    {
+        if (noteService.updateNote(noteID, noteUpd) != null)
+            return new ResponseEntity<>(noteUpd, HttpStatus.OK);
+        else
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
     }
-
 }
