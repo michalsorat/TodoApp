@@ -14,12 +14,14 @@ public class NoteConfig {
         return args -> {
             Note todo = new Note(
                     "todo",
+                    "123",
                     "from",
                     "to",
                     true
             );
             Note todo2 = new Note(
                     "todo2",
+                    "sme najlepsi",
                     "from2",
                     "to2",
                     false
