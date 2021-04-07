@@ -13,18 +13,18 @@ public class NoteConfig {
     CommandLineRunner commandLineRunner_Notes(NoteRepository repository) {
         return args -> {
             Note todo = new Note(
-                    "todo",
                     "123",
                     "from",
                     "to",
-                    true
+                    true,
+                    2
             );
             Note todo2 = new Note(
-                    "todo2",
                     "sme najlepsi",
                     "from2",
                     "to2",
-                    false
+                    false,
+                    2
             );
             repository.saveAll(
                     List.of(todo, todo2)

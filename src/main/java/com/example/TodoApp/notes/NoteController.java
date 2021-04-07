@@ -1,5 +1,6 @@
 package com.example.TodoApp.notes;
 
+import com.example.TodoApp.users.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,9 +17,10 @@ public class NoteController {
         this.noteService = noteService;
     }
 
+    //get notes pre daneho usera
     @GetMapping
-    public List<Note> getNote() {
-        return noteService.getNotes();
+    public List<Note> getNote(@RequestBody User user) {
+        return noteService.getNotes(user.getId());
     }
 
     @PostMapping(path = "newNote")

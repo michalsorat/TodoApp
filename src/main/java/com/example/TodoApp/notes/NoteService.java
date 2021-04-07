@@ -16,7 +16,8 @@ public class NoteService {
         this.noteRepository = noteRepository;
     }
 
-    public List<Note> getNotes() {
+    public List<Note> getNotes(Long userID) {
+
         return noteRepository.findAll();
     }
 

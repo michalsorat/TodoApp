@@ -1,5 +1,7 @@
 package com.example.TodoApp.notes;
 
+import com.example.TodoApp.users.User;
+
 import javax.persistence.*;
 
 @Entity
@@ -22,43 +24,46 @@ public class Note {
     private String platnost;
     private boolean favourite;
 
+
+
     public Note() {
     }
 
-    public Note(long id, long user_id, String note, String od, String platnost, boolean favourite) {
+    public Note(long id, /*long user_id,*/ String note, String od, String platnost, boolean favourite) {
         this.id = id;
+        //this.user_id = user_id;
+        this.note = note;
+        this.od = od;
+        this.platnost = platnost;
+        this.favourite = favourite;
+    }
+
+    public Note(String note, String od, String platnost, boolean favourite, long user_id) {
+        this.note = note;
+        this.od = od;
+        this.platnost = platnost;
+        this.favourite = favourite;
         this.user_id = user_id;
-        this.note = note;
-        this.od = od;
-        this.platnost = platnost;
-        this.favourite = favourite;
     }
 
-    public Note(String note, String od, String platnost, boolean favourite) {
-        this.note = note;
-        this.od = od;
-        this.platnost = platnost;
-        this.favourite = favourite;
-    }
-
-    public Note(String name, String note, String from, String to, boolean favourite) {
-    }
+    /*public Note(String name, String note, String from, String to, boolean favourite) {
+    }*/
 
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public Long getUser_id() {
+    /*public Long getUser_id() {
         return user_id;
     }
 
-    public void setUser_id(Long user_id) {
+    public void setUser_id(long user_id) {
         this.user_id = user_id;
-    }
+    }*/
 
     public String getNote() {
         return note;
@@ -96,7 +101,7 @@ public class Note {
     public String toString() {
         return "Note{" +
                 "id=" + id +
-                ", user_id='" + user_id + '\'' +
+                //", user_id='" + user_id + '\'' +
                 ", note='" + note + '\'' +
                 ", from='" + od + '\'' +
                 ", to='" + platnost + '\'' +

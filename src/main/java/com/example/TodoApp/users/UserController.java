@@ -49,7 +49,7 @@ public class UserController {
 
     }
 
-    @GetMapping(path = "login")
+    @PostMapping(path = "login")
     public User loginUser(@RequestBody User user) {
         return userService.loginUser(user);
     }

@@ -1,7 +1,11 @@
 package com.example.TodoApp.users;
 
+import com.example.TodoApp.notes.Note;
+
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -16,10 +20,13 @@ public class User {
             strategy = GenerationType.SEQUENCE,
             generator = "users_sequence"
     )
-    private Long id;
+    private long id;
     private String name;
     private String password;
     private String email;
+    /*@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "user_id")
+    private List<Note> notes = new ArrayList<>();*/
 //    @Transient
 //    private String reg_date;
 
@@ -28,7 +35,7 @@ public class User {
     public User() {
     }
 
-    public User(Long id, String name, String password, String email /*,String reg_date*/) {
+    public User(long id, String name, String password, String email /*,String reg_date*/) {
         this.id = id;
         this.name = name;
         this.password = password;
@@ -45,11 +52,11 @@ public class User {
         //this.reg_date = reg_date;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 

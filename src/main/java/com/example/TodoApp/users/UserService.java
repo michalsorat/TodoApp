@@ -41,7 +41,7 @@ public class UserService {
         }
     }
 
-    public void deleteUser(Long id) {
+    public void deleteUser(long id) {
         boolean exists = userRepository.existsById(id);
         if (!exists) {
             throw new IllegalStateException("User with id " + id + "does not exist");
@@ -50,7 +50,7 @@ public class UserService {
     }
 
     @Transactional
-    public void updateUser(Long userID, String name, String email, String password) {
+    public void updateUser(long userID, String name, String email, String password) {
         User user = userRepository.findById(userID)
                 .orElseThrow(() -> new IllegalStateException("User with ID " + userID + "does not exist"));
         if (name != null && name.length() > 0 && !Objects.equals(user.getName(), name)) {
@@ -69,7 +69,7 @@ public class UserService {
         }
     }
 
-    public User getUser(Long userId) {
+    public User getUser(long userId) {
         Optional<User> exists = userRepository.findById(userId);
         if (exists.isEmpty())
             throw new IllegalStateException("User with ID " + userId + " does not exist!");
