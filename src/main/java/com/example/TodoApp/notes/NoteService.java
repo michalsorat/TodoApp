@@ -1,7 +1,9 @@
 package com.example.TodoApp.notes;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -17,21 +19,17 @@ public class NoteService {
         this.noteRepository = noteRepository;
     }
 
-    /*public List<Note> getNotes(Long userID) {
-
-        return noteRepository.findAll();
-    }*/
-
     public void addNewNote(Note note) {
         noteRepository.save(note);
     }
 
-    public void deleteNote(Long id) {
-        boolean exists = noteRepository.existsById(id);
-        if (!exists) {
-            throw new IllegalStateException("Note with id " + id + "does not exist");
+    public boolean deleteNote(Long id) {
+        if (noteRepository.existsById(id)) {
+            noteRepository.deleteById(id);
+            return true;
         }
-        noteRepository.deleteById(id);
+        else
+            return false;
     }
 
     @Transactional
@@ -69,11 +67,10 @@ public class NoteService {
 
 
     public Note getNote(Long noteId) {
-        Optional<Note> exists = noteRepository.findById(noteId);
-        if (exists.isEmpty())
-            throw new IllegalStateException("Note with ID " + noteId + " does not exist!");
-
-        return exists.get();
+        if (noteRepository.existsById(noteId))
+            return noteRepository.findById(noteId).get();
+        else
+            return null;
     }
 
     public List<Note> getNotesByUser(long userId) {
