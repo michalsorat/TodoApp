@@ -26,8 +26,15 @@ public class NoteConfig {
                     false,
                     2
             );
+            Note todo3 = new Note(
+                    "huehue",
+                    "from2",
+                    "to2",
+                    false,
+                    1
+            );
             repository.saveAll(
-                    List.of(todo, todo2)
+                    List.of(todo, todo2, todo3)
             );
         };
     }

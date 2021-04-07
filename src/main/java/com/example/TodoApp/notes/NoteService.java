@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class NoteService {
@@ -16,10 +17,10 @@ public class NoteService {
         this.noteRepository = noteRepository;
     }
 
-    public List<Note> getNotes(Long userID) {
+    /*public List<Note> getNotes(Long userID) {
 
         return noteRepository.findAll();
-    }
+    }*/
 
     public void addNewNote(Note note) {
         noteRepository.save(note);
@@ -44,5 +45,17 @@ public class NoteService {
             note.setFavourite(favourite);
         }
 
+    }
+    public Note getNote(Long noteId) {
+        Optional<Note> exists = noteRepository.findById(noteId);
+        if (exists.isEmpty())
+            throw new IllegalStateException("Note with ID " + noteId + " does not exist!");
+
+        return exists.get();
+    }
+
+    public List<Note> getNotesByUser(long userId) {
+        List<Note> vratenie = noteRepository.findNotesByUserId(userId);
+        return vratenie;
     }
 }

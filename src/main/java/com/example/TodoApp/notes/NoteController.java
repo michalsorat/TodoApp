@@ -18,9 +18,15 @@ public class NoteController {
     }
 
     //get notes pre daneho usera
-    @GetMapping
-    public List<Note> getNote(@RequestBody User user) {
-        return noteService.getNotes(user.getId());
+    @GetMapping(path = "user/{userId}")
+    public List<Note> getNotes(@PathVariable("userId") long userId) {
+        return noteService.getNotesByUser(userId);
+    }
+
+    //vybrat jeden note podla id
+    @GetMapping(path = "{noteId}")
+    public Note getNote(@PathVariable("noteId") long noteId){
+        return noteService.getNote(noteId);
     }
 
     @PostMapping(path = "newNote")
@@ -29,13 +35,13 @@ public class NoteController {
     }
 
     @DeleteMapping(path = "{noteID}")
-    public void deleteNote(@PathVariable("noteID") Long noteID) {
+    public void deleteNote(@PathVariable("noteID") long noteID) {
         noteService.deleteNote(noteID);
     }
 
     @PutMapping(path = "{noteID}")
     public void updateNote(
-            @PathVariable("noteID") Long noteID,
+            @PathVariable("noteID") long noteID,
             @RequestParam(required = false) String note,
             @RequestParam(required = false) Boolean favourite) {
         noteService.updateNote(noteID, note, favourite);
