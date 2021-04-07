@@ -101,7 +101,7 @@ public class Note {
     public String toString() {
         return "Note{" +
                 "id=" + id +
-                //", user_id='" + user_id + '\'' +
+                ", user_id='" + user_id + '\'' +
                 ", note='" + note + '\'' +
                 ", from='" + od + '\'' +
                 ", to='" + platnost + '\'' +
