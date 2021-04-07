@@ -22,7 +22,7 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public void addNewUser(User user) {
+    public User addNewUser(User user) {
         if (user.getPassword() != null && !user.getPassword().isEmpty() && user.getEmail() != null && !user.getEmail().isEmpty() && user.getName() != null && !user.getName().isEmpty()
                 && user.getPassword().length() > 6) {
             Optional<User> userByEmail = userRepository.findUserByEmail(user.getEmail());
@@ -36,6 +36,7 @@ public class UserService {
 
             user.setReg_date(LocalDate.now());
             userRepository.save(user);
+            return user;
         } else {
             throw new IllegalStateException("Wrong input!");
         }
