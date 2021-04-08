@@ -2,6 +2,7 @@ package com.example.TodoApp.users;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ServerErrorException;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
@@ -23,50 +24,64 @@ public class UserService {
     }
 
     public User addNewUser(User user) {
-        if (user.getPassword() != null && !user.getPassword().isEmpty() && user.getEmail() != null && !user.getEmail().isEmpty() && user.getName() != null && !user.getName().isEmpty()
-                && user.getPassword().length() > 6) {
+        if (user.getPassword() != null && user.getEmail() != null && user.getName() != null &&
+                !user.getPassword().isEmpty() && !user.getEmail().isEmpty() && !user.getName().isEmpty()) {
+            if (user.getPassword().length() <= 6) {
+                throw new IllegalArgumentException("Password too short");
+            }
+            //kontrola mena a hesla
             Optional<User> userByEmail = userRepository.findUserByEmail(user.getEmail());
             if (userByEmail.isPresent()) {
-                throw new IllegalStateException("Email address already in use");
+                throw new IllegalArgumentException("Email address already in use");
             }
             Optional<User> userByName = userRepository.findUserByName((user.getName()));
             if (userByName.isPresent()) {
-                throw new IllegalStateException("Name already in use");
-            } //kontrola mena a hesla
+                throw new IllegalArgumentException("Name already in use");
+            }
 
             user.setReg_date(LocalDate.now());
             userRepository.save(user);
             return user;
-        } else {
-            throw new IllegalStateException("Wrong input!");
+        }
+        else
+        {
+            throw new IllegalStateException("Missing input");
         }
     }
 
     public void deleteUser(long id) {
-        boolean exists = userRepository.existsById(id);
-        if (!exists) {
-            throw new IllegalStateException("User with id " + id + "does not exist");
+        if (!userRepository.existsById(id)) {
+            throw new IllegalStateException("User with id " + id + " does not exist");
         }
         userRepository.deleteById(id);
     }
 
     @Transactional
-    public void updateUser(long userID, String name, String email, String password) {
-        User user = userRepository.findById(userID)
-                .orElseThrow(() -> new IllegalStateException("User with ID " + userID + "does not exist"));
-        if (name != null && name.length() > 0 && !Objects.equals(user.getName(), name)) {
-            user.setName(name);
-        }
-        if (email != null && email.length() > 0 && !Objects.equals(user.getEmail(), email)) {
-            Optional<User> userMail = userRepository
-                    .findUserByEmail(email);
-            if (userMail.isPresent()) {
-                throw new IllegalStateException("Email already in use");
+    public User updateUser(long userID, User userUpt) {
+        if (userRepository.findById(userID).isPresent())
+        {
+            User existingUser = userRepository.findById(userID).get();
+            if (userUpt.getName() != null && !Objects.equals(existingUser.getName(), userUpt.getName())) {
+                existingUser.setName(userUpt.getName());
             }
-            user.setEmail(email);
+            if (userUpt.getPassword() != null && !Objects.equals(existingUser.getPassword(), userUpt.getPassword())) {
+                if (userUpt.getPassword().length() > 6)
+                    existingUser.setPassword(userUpt.getPassword());
+                else
+                    throw new IllegalArgumentException("Email already in use");
+            }
+            if (userUpt.getEmail() != null && !Objects.equals(existingUser.getEmail(), userUpt.getEmail())) {
+                Optional<User> userMail = userRepository.findUserByEmail(userUpt.getEmail());
+                if (userMail.isPresent()) {
+                    throw new IllegalArgumentException("Email already in use");
+                }
+                existingUser.setEmail(userUpt.getEmail());
+            }
+            return userRepository.save(existingUser);
         }
-        if (password != null && password.length() > 6 && !Objects.equals(user.getPassword(), password)) {
-            user.setPassword(password);
+        else
+        {
+            throw new IllegalStateException("User with id " + userID + " does not exist");
         }
     }
 
@@ -74,20 +89,21 @@ public class UserService {
         Optional<User> exists = userRepository.findById(userId);
         if (exists.isEmpty())
             throw new IllegalStateException("User with ID " + userId + " does not exist!");
-
         return exists.get();
     }
 
     public User loginUser(User user) {
-        if (user != null && user.getEmail() != null && user.getEmail().length() > 0) {
+        if (user != null && user.getEmail() != null && user.getPassword() != null && !user.getPassword().isEmpty() && !user.getEmail().isEmpty()) {
             Optional<User> exists = userRepository.findUserByEmail(user.getEmail());
-            if (exists.isEmpty() || (user.getPassword() != null && user.getPassword().length() <= 6
-                    && !user.getPassword().equals(exists.get().getPassword()))) {
-                throw new IllegalStateException("Wrong username or pasword");
+            if (exists.isPresent() && !user.getPassword().equals(exists.get().getPassword())) {
+                throw new IllegalArgumentException("Wrong email or password");
             }
-            return exists.get();
-        } else {
-            throw new IllegalStateException("Wrong username or pasword");
+            else if (exists.isEmpty())
+                throw new IllegalStateException("Wrong email or password");
+            else
+                return exists.get();
         }
+        else
+            throw new IllegalStateException("Missing input");
     }
 }

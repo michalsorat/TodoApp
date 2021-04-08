@@ -35,21 +35,19 @@ public class User {
     public User() {
     }
 
-    public User(long id, String name, String password, String email /*,String reg_date*/) {
+    public User(long id, String name, String password, String email) {
         this.id = id;
         this.name = name;
         this.password = password;
         this.email = email;
         this.reg_date = LocalDate.now();
-        // this.reg_date = reg_date;
     }
 
-    public User(String name, String password, String email/*, String reg_date*/) {
+    public User(String name, String password, String email) {
         this.name = name;
         this.password = password;
         this.email = email;
         this.reg_date = LocalDate.now();
-        //this.reg_date = reg_date;
     }
 
     public long getId() {
@@ -99,7 +97,6 @@ public class User {
     }*/
 
     public void setReg_date(LocalDate reg_date) {
-
         this.reg_date = reg_date;
     }
 

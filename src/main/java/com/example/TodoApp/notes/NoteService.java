@@ -20,17 +20,19 @@ public class NoteService {
     }
 
     public Note addNewNote(Note note) {
-        noteRepository.save(note);
-        return note;
-    }
-
-    public boolean deleteNote(Long id) {
-        if (noteRepository.existsById(id)) {
-            noteRepository.deleteById(id);
-            return true;
+        if (note.getNote() != null && !note.getNote().isEmpty()) {
+            return noteRepository.save(note);
         }
         else
-            return false;
+            throw new IllegalStateException("Missing input");
+    }
+
+    public void deleteNote(Long id) {
+        if (noteRepository.existsById(id)) {
+            noteRepository.deleteById(id);
+        }
+        else
+            throw new IllegalStateException("Note with id " + id + " does not exist");
     }
 
     @Transactional
@@ -38,40 +40,35 @@ public class NoteService {
         if (noteRepository.findById(id).isPresent())
         {
             Note existingNote = noteRepository.findById(id).get();
-            if (updNote.getNote() != null && !Objects.equals(existingNote.getNote(), updNote.getNote()))
-            {
+            if (updNote.getNote() != null && !Objects.equals(existingNote.getNote(), updNote.getNote())) {
                 existingNote.setNote(updNote.getNote());
             }
-            if (updNote.getDescription() != null && !Objects.equals(existingNote.getDescription(), updNote.getDescription()))
-            {
+            if (updNote.getDescription() != null && !Objects.equals(existingNote.getDescription(), updNote.getDescription())) {
                 existingNote.setDescription(updNote.getDescription());
             }
-            if (updNote.getFromDate() != null && !Objects.equals(existingNote.getFromDate(), updNote.getFromDate()))
-            {
+            if (updNote.getFromDate() != null && !Objects.equals(existingNote.getFromDate(), updNote.getFromDate())) {
                 existingNote.setFromDate(updNote.getFromDate());
             }
-            if (updNote.getToDate() != null && !Objects.equals(existingNote.getToDate(), updNote.getToDate()))
-            {
+            if (updNote.getToDate() != null && !Objects.equals(existingNote.getToDate(), updNote.getToDate())) {
                 existingNote.setToDate(updNote.getToDate());
             }
-            if (!Objects.equals(existingNote.isFavourite(), updNote.isFavourite()))
-            {
+            if (!Objects.equals(existingNote.isFavourite(), updNote.isFavourite())) {
                 existingNote.setFavourite(updNote.isFavourite());
             }
             return noteRepository.save(existingNote);
         }
         else
         {
-            return null;
+            throw new IllegalStateException("Note with id " + id + " does not exist");
         }
     }
 
 
     public Note getNote(Long noteId) {
-        if (noteRepository.existsById(noteId))
-            return noteRepository.findById(noteId).get();
-        else
-            return null;
+        Optional<Note> exists = noteRepository.findById(noteId);
+        if (exists.isEmpty())
+            throw new IllegalStateException("Note with id " + noteId + " does not exist");
+        return exists.get();
     }
 
     public List<Note> getNotesByUser(long userId) {

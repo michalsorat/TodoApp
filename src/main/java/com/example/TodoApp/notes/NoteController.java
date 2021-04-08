@@ -24,45 +24,52 @@ public class NoteController {
     @GetMapping(path = "user/{userId}")
     @ResponseStatus(HttpStatus.OK)
     public List<Note> getNotesOfUser(@PathVariable("userId") long userId) {
-        List<Note> notesOfUser = noteService.getNotesByUser(userId);
-        if (notesOfUser.isEmpty())
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User doesnt have any notes");
-        else
-            return notesOfUser;
+        return noteService.getNotesByUser(userId);
     }
 
     //vybrat jeden note podla id
     @GetMapping(path = "{noteId}")
-    public ResponseEntity<Note> getNote(@PathVariable("noteId") long noteId){
-        Note retNote = noteService.getNote(noteId);
-        if (retNote != null){
-            return new ResponseEntity<>(retNote, HttpStatus.OK);
+    @ResponseStatus(HttpStatus.OK)
+    public Note getNote(@PathVariable("noteId") long noteId){
+        try {
+            return noteService.getNote(noteId);
         }
-        else{
-            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        catch(IllegalStateException exc){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, exc.getMessage(), exc);
         }
     }
+
 
     @PostMapping(path = "newNote")
     @ResponseStatus(HttpStatus.OK)
     public Note addNewNote(@RequestBody Note newNote) {
-        noteService.addNewNote(newNote);
-        return newNote;
+        try {
+            return noteService.addNewNote(newNote);
+        }
+        catch (IllegalStateException exc) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, exc.getMessage(), exc);
+        }
     }
 
     @DeleteMapping(path = "{noteID}")
     @ResponseStatus(HttpStatus.OK)
     public void deleteNote(@PathVariable("noteID") long noteID) {
-        if(!noteService.deleteNote(noteID))
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Note with this id doesnt exist");
+        try {
+            noteService.deleteNote(noteID);
+        }
+        catch (IllegalStateException exc) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, exc.getMessage(), exc);
+        }
     }
 
     @PutMapping(path = "{noteID}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Note> updateNote(@PathVariable("noteID") long noteID, @RequestBody Note noteUpd) {
-        if (noteService.updateNote(noteID, noteUpd) != null)
-            return new ResponseEntity<>(noteUpd, HttpStatus.OK);
-        else
-            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+    public Note updateNote(@PathVariable("noteID") long noteID, @RequestBody Note noteUpd) {
+        try {
+            return noteService.updateNote(noteID, noteUpd);
+        }
+        catch (IllegalStateException exc) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, exc.getMessage(), exc);
+        }
     }
 }
