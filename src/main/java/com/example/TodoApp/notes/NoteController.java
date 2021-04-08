@@ -22,8 +22,13 @@ public class NoteController {
 
     //get notes pre daneho usera
     @GetMapping(path = "user/{userId}")
-    public List<Note> getNotes(@PathVariable("userId") long userId) {
-        return noteService.getNotesByUser(userId);
+    @ResponseStatus(HttpStatus.OK)
+    public List<Note> getNotesOfUser(@PathVariable("userId") long userId) {
+        List<Note> notesOfUser = noteService.getNotesByUser(userId);
+        if (notesOfUser.isEmpty())
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User doesnt have any notes");
+        else
+            return notesOfUser;
     }
 
     //vybrat jeden note podla id

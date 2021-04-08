@@ -75,7 +75,6 @@ public class NoteService {
     }
 
     public List<Note> getNotesByUser(long userId) {
-        //List<Note> notesOfUser = noteRepository.findNotesByUserId(userId);
         return noteRepository.findNotesByUserId(userId);
     }
 }
