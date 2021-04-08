@@ -40,8 +40,9 @@ public class NoteController {
 
     @PostMapping(path = "newNote")
     @ResponseStatus(HttpStatus.OK)
-    public void addNewNote(@RequestBody Note newNote) {
+    public Note addNewNote(@RequestBody Note newNote) {
         noteService.addNewNote(newNote);
+        return newNote;
     }
 
     @DeleteMapping(path = "{noteID}")

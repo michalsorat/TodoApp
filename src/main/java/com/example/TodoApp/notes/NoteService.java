@@ -19,8 +19,9 @@ public class NoteService {
         this.noteRepository = noteRepository;
     }
 
-    public void addNewNote(Note note) {
+    public Note addNewNote(Note note) {
         noteRepository.save(note);
+        return note;
     }
 
     public boolean deleteNote(Long id) {
