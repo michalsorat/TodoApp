@@ -2,7 +2,6 @@ package com.example.TodoApp.users;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ServerErrorException;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
@@ -23,7 +22,8 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public User addNewUser(User user) {
+    @Transactional
+    public User addNewUser(User user){
         if (user.getPassword() != null && user.getEmail() != null && user.getName() != null &&
                 !user.getPassword().isEmpty() && !user.getEmail().isEmpty() && !user.getName().isEmpty()) {
             if (user.getPassword().length() <= 6) {
@@ -38,7 +38,6 @@ public class UserService {
             if (userByName.isPresent()) {
                 throw new IllegalArgumentException("Name already in use");
             }
-
             user.setReg_date(LocalDate.now());
             userRepository.save(user);
             return user;

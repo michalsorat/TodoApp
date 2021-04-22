@@ -31,23 +31,27 @@ public class User {
 //    private String reg_date;
 
     private LocalDate reg_date;
+    @Lob
+    private byte[] image;
 
     public User() {
     }
 
-    public User(long id, String name, String password, String email) {
+    public User(long id, String name, String password, String email, byte[] image) {
         this.id = id;
         this.name = name;
         this.password = password;
         this.email = email;
         this.reg_date = LocalDate.now();
+        this.image = image;
     }
 
-    public User(String name, String password, String email) {
+    public User(String name, String password, String email, byte[] image) {
         this.name = name;
         this.password = password;
         this.email = email;
         this.reg_date = LocalDate.now();
+        this.image = image;
     }
 
     public long getId() {
@@ -98,6 +102,14 @@ public class User {
 
     public void setReg_date(LocalDate reg_date) {
         this.reg_date = reg_date;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 
     @Override
