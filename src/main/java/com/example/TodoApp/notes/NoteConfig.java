@@ -13,24 +13,28 @@ public class NoteConfig {
     CommandLineRunner commandLineRunner_Notes(NoteRepository repository) {
         return args -> {
             Note todo1 = new Note(
+                    1,1,
                     "noteName1",
                     "descriptionOfNote",
-                    "from1",
-                    "to1",
+                    "28-03-2021",
+                    "29-04-2021",
                     true
+
             );
             Note todo2 = new Note(
-                    "NoteName2",
+                    2,2,"NoteName2",
                     "descriptionNote2",
-                    "from2",
-                    "to2",
+                    "28-03-2021",
+                    "29-04-2021",
                     false
+
             );
             Note todo3 = new Note(
+                    3,1,
                     "NoteName3",
                     "descriptionNote3",
-                    "from2",
-                    "to2",
+                    "28-03-2021",
+                    "28-04-2021",
                     false
             );
             repository.saveAll(
