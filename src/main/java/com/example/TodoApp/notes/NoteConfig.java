@@ -16,16 +16,16 @@ public class NoteConfig {
                     1,1,
                     "noteName1",
                     "descriptionOfNote",
-                    "28-03-2021",
-                    "29-04-2021",
+                    "2021-03-28",
+                    "2021-04-29",
                     true
 
             );
             Note todo2 = new Note(
                     2,2,"NoteName2",
                     "descriptionNote2",
-                    "28-03-2021",
-                    "29-04-2021",
+                    "2021-03-28",
+                    "2021-04-29",
                     false
 
             );
@@ -33,8 +33,8 @@ public class NoteConfig {
                     3,1,
                     "NoteName3",
                     "descriptionNote3",
-                    "28-03-2021",
-                    "28-04-2021",
+                    "2021-03-28",
+                    "2021-04-28",
                     false
             );
             repository.saveAll(
