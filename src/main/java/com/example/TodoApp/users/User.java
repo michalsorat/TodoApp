@@ -24,20 +24,13 @@ public class User {
     private String name;
     private String password;
     private String email;
-    /*@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "user_id")
-    private List<Note> notes = new ArrayList<>();*/
-//    @Transient
-//    private String reg_date;
-
     private LocalDate reg_date;
-    @Lob
-    private byte[] image;
+    private String image;
 
     public User() {
     }
 
-    public User(long id, String name, String password, String email, byte[] image) {
+    public User(long id, String name, String password, String email, String image) {
         this.id = id;
         this.name = name;
         this.password = password;
@@ -46,7 +39,7 @@ public class User {
         this.image = image;
     }
 
-    public User(String name, String password, String email, byte[] image) {
+    public User(String name, String password, String email, String image) {
         this.name = name;
         this.password = password;
         this.email = email;
@@ -104,13 +97,14 @@ public class User {
         this.reg_date = reg_date;
     }
 
-    public byte[] getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(byte[] image) {
+    public void setImage(String image) {
         this.image = image;
     }
+
 
     @Override
     public String toString() {
@@ -119,7 +113,8 @@ public class User {
                 ", name='" + name + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
-                ", registration_date='" + reg_date + '\'' +
+                ", reg_date=" + reg_date +
+                ", image='" + image + '\'' +
                 '}';
     }
 }

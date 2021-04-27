@@ -22,7 +22,7 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    @Transactional
+    //@Transactional
     public User addNewUser(User user){
         if (user.getPassword() != null && user.getEmail() != null && user.getName() != null &&
                 !user.getPassword().isEmpty() && !user.getEmail().isEmpty() && !user.getName().isEmpty()) {
